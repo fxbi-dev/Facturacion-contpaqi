@@ -6,6 +6,7 @@
       <e p="Facturación.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="Prueba SKD" t="IncludeRecursive">
+        <e p="app.manifest" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="Program.cs" t="Include" />
@@ -16,12 +17,33 @@
       </e>
       <e p="SDKCompac" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Class1.cs" t="Include" />
+        <e p="Modelos" t="Include">
+          <e p="ClienteProveedor.cs" t="Include" />
+          <e p="Empresa.cs" t="Include" />
+        </e>
+        <e p="Nativos" t="Include">
+          <e p="Constantes.cs" t="Include" />
+          <e p="Estructuras" t="Include">
+            <e p="tCteProv.cs" t="Include" />
+            <e p="tDireccion.cs" t="Include" />
+            <e p="tDocumento.cs" t="Include" />
+            <e p="tMovimiento.cs" t="Include" />
+            <e p="tProduto.cs" t="Include" />
+            <e p="tSeriesCapas.cs" t="Include" />
+          </e>
+          <e p="SDKAdminpaq.cs" t="Include" />
+          <e p="SDKComercial.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive" />
         <e p="Properties" t="Include">
           <e p="AssemblyInfo.cs" t="Include" />
         </e>
         <e p="SDKCompac.csproj" t="IncludeRecursive" />
+        <e p="SDKs" t="Include">
+          <e p="Comercial.cs" t="Include" />
+          <e p="SDK.cs" t="Include" />
+          <e p="SDKCompacException.cs" t="Include" />
+        </e>
       </e>
     </e>
   </component>
