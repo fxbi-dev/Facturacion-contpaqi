@@ -51,7 +51,7 @@
     <Compile Include="SDKs\SDK.cs" />
     <Compile Include="SDKs\SDKCompacException.cs" />
     <Compile Include="Nativos\SDKAdminpaq.cs" />
-    <Compile Include="Nativos\SDKComercial.cs" />
+    <Compile Include="Nativos\SDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

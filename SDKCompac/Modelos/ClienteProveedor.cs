@@ -1,8 +1,63 @@
-﻿using SDKCompac.Nativos.Estructuras;
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
+using System.Text;
+using SDKCompac.Nativos;
+using SDKCompac.Nativos.Estructuras;
 
 namespace SDKCompac.Modelos {
-    public class ClienteProveedor {
+    public class ClienteProveedor : IComparable<ClienteProveedor> {
+        public static class Campos {
+            public const string CodigoCliente = "cCodigoCliente";
+            public const string RazonSocial = "cRazonSocial";
+            public const string RFC = "cRFC";
+            public const string CodigoValorClasificacionCliente1 = "CIDVALORCLASIFCLIENTE1";
+        }
+        
         private tCteProv _estructura;
+
+        public int Indice { private set; get; }
+
+        public static ClienteProveedor Obtener(int indice, string[] campos) {
+
+            if (indice >= 0) {
+                Comercial.comprobarError(Nativos.SDK.fPosPrimerCteProv());
+                for (int i = 0; i < indice; i++) {
+                    Comercial.comprobarError(Nativos.SDK.fPosSiguienteCteProv());
+                }
+            } else {
+                indice = Math.Abs(indice) - 1;
+            }
+
+            ClienteProveedor cteProv = new ClienteProveedor(indice);
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (string campo in campos) {
+                switch (campo) {
+                    case ClienteProveedor.Campos.CodigoCliente:
+                        Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
+                            Constantes.kLongCodigo + 1));
+                        cteProv.CodigoCliente = stringBuilder.ToString();
+                        break;
+                    case ClienteProveedor.Campos.RazonSocial:
+                        Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
+                            Constantes.kLongNombre + 1));
+                        cteProv.RazonSocial = stringBuilder.ToString();
+                        break;
+                    case ClienteProveedor.Campos.RFC:
+                        Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
+                            Constantes.kLongRFC + 1));
+                        cteProv.RFC = stringBuilder.ToString();
+                        break;
+                    case ClienteProveedor.Campos.CodigoValorClasificacionCliente1:
+                        Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
+                            Constantes.kLongCodValorClasif + 1));
+                        cteProv.CodigoValorClasificacionCliente1 = stringBuilder.ToString();
+                        break;
+                }
+            }
+
+            return cteProv;
+        }
 
         public string CodigoCliente {
             get => _estructura.cCodigoCliente;
@@ -329,12 +384,50 @@ namespace SDKCompac.Modelos {
             set => _estructura.cImporteExtra4 = value;
         }
         
-        public ClienteProveedor() {
+        public ClienteProveedor(int indice) {
+            Indice = indice;
             _estructura = new tCteProv();
         }
 
-        public ClienteProveedor(tCteProv clienteProveedorEstructura) {
+        public ClienteProveedor(int indice, tCteProv clienteProveedorEstructura) {
+            Indice = indice;
             _estructura = clienteProveedorEstructura;
+        }
+
+        public int CompareTo(ClienteProveedor other) {
+            int thisIntCodigoCliente = 0;
+            int otherIntCodigoCliente = 0;
+            string thisStringCodigoCliente = null;
+            string otherStringCodigoCliente = null;
+
+            if (!int.TryParse(this.CodigoCliente, out thisIntCodigoCliente)) {
+                thisStringCodigoCliente = this.CodigoCliente;
+            }
+            if (!int.TryParse(other.CodigoCliente, out otherIntCodigoCliente)) {
+                otherStringCodigoCliente = other.CodigoCliente;
+            }
+
+            if (thisStringCodigoCliente != null && otherStringCodigoCliente == null) {
+                return 1;
+            }
+
+            if (thisStringCodigoCliente == null && otherStringCodigoCliente != null) {
+                return -1;
+            }
+
+            if (thisStringCodigoCliente != null && otherStringCodigoCliente != null) {
+                String.Compare(thisStringCodigoCliente, otherStringCodigoCliente);
+            }
+
+            if (thisIntCodigoCliente < otherIntCodigoCliente)
+                return -1;
+            if (thisIntCodigoCliente > otherIntCodigoCliente)
+                return 1;
+            return 0;
+        }
+
+        public override string ToString() {
+            return RazonSocial;
         }
     }
 }

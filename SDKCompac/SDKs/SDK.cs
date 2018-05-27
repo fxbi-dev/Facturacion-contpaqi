@@ -11,6 +11,6 @@ namespace SDKCompac {
         void cerrarEmpresa();
 
         // Cliente/Proveedor
-        string[] obtenerClientesProveedores();
+        ClienteProveedor[] obtenerClientesProveedores();
     }
 }

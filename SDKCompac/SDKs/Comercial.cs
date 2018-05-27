@@ -7,42 +7,58 @@ using SDKCompac.Modelos;
 using SDKCompac.Nativos;
 
 namespace SDKCompac{
-    public class Comercial : SDK{
-        public string Ruta { private set; get; }
+    public class Comercial : SDK {
+        public string Ruta { get; }
         private const string SISTEMA = "CONTPAQ I COMERCIAL";
         public bool SesionIniciada { private set; get; }
+        private int _error;
 
-        private void comprobarSesion() {
-            if (!SesionIniciada) {
+        #region Constructores
+        public Comercial() {
+            SesionIniciada = false;
+            Ruta = @"C:\Program Files (x86)\Compac\COMERCIAL";
+            Nativos.SDK.SetCurrentDirectory(Ruta);
+        }
+
+        public Comercial(string Ruta) {
+            SesionIniciada = false;
+            this.Ruta = Ruta;
+            Nativos.SDK.SetCurrentDirectory(Ruta);
+        }
+        #endregion
+
+        #region Manejo de errores
+        private void comprobarSesion()
+        {
+            if (!SesionIniciada)
+            {
                 throw new SDKCompacException("La sesión no está iniciada");
             }
         }
 
-        private void comprobarError() {
-            if (_error != 0) {
-                throw new SDKCompacException(SdkComercial.getError(_error));
+        private void comprobarError()
+        {
+            if (_error != 0)
+            {
+                throw new SDKCompacException(Nativos.SDK.getError(_error));
             }
         }
 
-        private int _error;
-
-        public Comercial() {
-            SesionIniciada = false;
-            Ruta = @"C:\Program Files (x86)\Compac\COMERCIAL";
-            SdkComercial.SetCurrentDirectory(Ruta);
-        }
-
-        public Comercial(string Ruta)
+        public static void comprobarError(int error)
         {
-            SesionIniciada = false;
-            this.Ruta = Ruta;
-            SdkComercial.SetCurrentDirectory(Ruta);
+            if (error != 0)
+            {
+                throw new SDKCompacException(Nativos.SDK.getError(error));
+            }
         }
+        #endregion
 
+        #region Sesion
         public void iniciarSesion() {
-            _error = SdkComercial.fSetNombrePAQ(SISTEMA);
-            if (_error != 0) {
-                throw new SDKCompacException(SdkComercial.getError(_error));
+            _error = Nativos.SDK.fSetNombrePAQ(SISTEMA);
+            if (_error != 0)
+            {
+                throw new SDKCompacException(Nativos.SDK.getError(_error));
             }
             SesionIniciada = true;
         }
@@ -50,18 +66,21 @@ namespace SDKCompac{
         public void cerrarSesion() {
             comprobarSesion();
             cerrarEmpresa();
-            SdkComercial.fTerminaSDK();
+            Nativos.SDK.fTerminaSDK();
             SesionIniciada = false;
         }
+        #endregion
 
-        public Empresa[] obtenerEmpresas() {
+        #region Empresa
+        public Empresa[] obtenerEmpresas()
+        {
             comprobarSesion();
             List<Empresa> empresas = new List<Empresa>();
             int idEmpresa = 0;
             StringBuilder nombreEmpresa = new StringBuilder();
             StringBuilder directorioEmpresa = new StringBuilder();
             Empresa empresa;
-            _error = SdkComercial.fPosPrimerEmpresa(ref idEmpresa, nombreEmpresa, directorioEmpresa);
+            _error = Nativos.SDK.fPosPrimerEmpresa(ref idEmpresa, nombreEmpresa, directorioEmpresa);
             comprobarError();
             empresa = new Empresa() {
                 ID = idEmpresa,
@@ -69,55 +88,68 @@ namespace SDKCompac{
                 Directorio = directorioEmpresa.ToString()
             };
             empresas.Add(empresa);
-            while (true) {
-                _error = SdkComercial.fPosSiguienteEmpresa(ref idEmpresa, nombreEmpresa, directorioEmpresa);
-                if (_error == 0) {
+            while (true)
+            {
+                _error = Nativos.SDK.fPosSiguienteEmpresa(ref idEmpresa, nombreEmpresa, directorioEmpresa);
+                if (_error == 0)
+                {
                     empresa = new Empresa() {
                         ID = idEmpresa,
                         Nombre = nombreEmpresa.ToString(),
                         Directorio = directorioEmpresa.ToString()
-                    };                    
+                    };
                     empresas.Add(empresa);
-                } else {
+                } else
+                {
                     break;
                 }
             }
             return empresas.ToArray();
         }
 
-        public void abrirEmpresa(string Directorio) {
+        public void abrirEmpresa(string Directorio)
+        {
             comprobarSesion();
             cerrarEmpresa();
-            _error = SdkComercial.fAbreEmpresa(Directorio);
+            _error = Nativos.SDK.fAbreEmpresa(Directorio);
             comprobarError();
         }
 
-        public void cerrarEmpresa() {
+        public void cerrarEmpresa()
+        {
             comprobarSesion();
-            SdkComercial.fCierraEmpresa();
+            Nativos.SDK.fCierraEmpresa();
         }
+        #endregion
 
-        public string[] obtenerClientesProveedores() {
+        #region Cliente Proveedor
+        public ClienteProveedor[] obtenerClientesProveedores() {
             comprobarSesion();
-            List<string> clientes = new List<string>();
-            _error = SdkComercial.fPosPrimerCteProv();
+            
+            List<ClienteProveedor> clientes = new List<ClienteProveedor>();
+            int indice = -1;
+            string[] campos = {
+                ClienteProveedor.Campos.CodigoCliente,
+                ClienteProveedor.Campos.RazonSocial,
+                ClienteProveedor.Campos.CodigoValorClasificacionCliente1
+            };
+            _error = Nativos.SDK.fPosPrimerCteProv();
             comprobarError();
-            StringBuilder razonSocial = new StringBuilder();
-            _error = SdkComercial.fLeeDatoCteProv("cRazonSocial", razonSocial, Constantes.kLongNombre);
-            comprobarError();
-            clientes.Add(razonSocial.ToString());
-            while (true) {
-                _error = SdkComercial.fPosSiguienteCteProv();
-                if (_error == 0) {
-                    _error = SdkComercial.fLeeDatoCteProv("cRazonSocial", razonSocial, Constantes.kLongNombre);
-                    comprobarError();
-                    clientes.Add(razonSocial.ToString());
-                } else {
+            
+            while (_error == 0) {
+                try {
+                    ClienteProveedor cteProv = ClienteProveedor.Obtener(indice, campos);
+                    clientes.Add(cteProv);
+                    _error = Nativos.SDK.fPosSiguienteCteProv();
+                    indice--;
+                }
+                catch {
                     break;
                 }
             }
-
+            clientes.Sort();
             return clientes.ToArray();
         }
+        #endregion
     }
 }

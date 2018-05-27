@@ -5,7 +5,7 @@ using SDKCompac.Nativos.Estructuras;
 
 namespace SDKCompac.Nativos
 {
-    public class SdkComercial
+    public class SDK
     {
         // Declaración de las funciones
 
