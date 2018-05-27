@@ -1,0 +1,20 @@
+.idea/
+.idea/*
+
+.vs/
+.vs/*
+
+Prueba\ SDK/bin/
+Prueba\ SDK/bin/*
+Prueba\ SDK/obj/
+Prueba\ SDK/obj/*
+
+SDKCompac/bin/
+SDKCompac/bin/*
+SDKCompac/obj/
+SDKCompac/obj/*
+
+UsoSDK/bin/
+UsoSDK/bin/*
+UsoSDK/obj/
+UsoSDK/obj/*
