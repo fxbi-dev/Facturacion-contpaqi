@@ -6,16 +6,16 @@ namespace SDKCompac.Nativos.Estructuras {
     public struct tMovimiento
     {
         public int aConsecutivo;
-        public Double aUnidades;
-        public Double aPrecio;
-        public Double aCosto;
+        public double aUnidades;
+        public double aPrecio;
+        public double aCosto;
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongCodigo)]
-        public String aCodProdSer;
+        public string aCodProdSer;
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongCodigo)]
-        public String aCodAlmacen;
+        public string aCodAlmacen;
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongReferencia)]
-        public String aReferencia;
+        public string aReferencia;
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongCodigo)]
-        public String aCodClasificacion;
+        public string aCodClasificacion;
     }
 }

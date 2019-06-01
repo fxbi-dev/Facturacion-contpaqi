@@ -34,5 +34,8 @@
         public const int kLongitudFolio = 17;
         public const int kLongitudMonto = 31;
         public const int kLogitudLugarExpedicion = 401;
+
+        public const int kIntGenerico = 12;
+        public const int kDoubleGenerico = 5;
     }
 }

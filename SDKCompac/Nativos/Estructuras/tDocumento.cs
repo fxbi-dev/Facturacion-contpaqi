@@ -25,8 +25,8 @@ namespace SDKCompac.Nativos.Estructuras {
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constantes.kLongReferencia)]
         public String aReferencia;
         public int aAfecta;
-        public int aGasto1;
-        public int aGasto2;
-        public int aGasto3;
+        public double aGasto1;
+        public double aGasto2;
+        public double aGasto3;
     }
 }

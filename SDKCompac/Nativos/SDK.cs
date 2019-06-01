@@ -134,6 +134,18 @@ namespace SDKCompac.Nativos
         public static extern Int32 fTimbraXML(string aRutaXML, string aCodConcepto, StringBuilder aUUID, string aRutaDDA, string aRutaResultado, string aPass, string aRutaFormato);
 
         [DllImport("MGWServicios.dll")]
+        public static extern Int32 fPosPrimerDocumento();
+
+        [DllImport("MGWServicios.dll")]
+        public static extern Int32 fPosUltimoDocumento();
+
+        [DllImport("MGWServicios.dll")]
+        public static extern Int32 fPosSiguienteDocumento();
+
+        [DllImport("MGWServicios.dll")]
+        public static extern Int32 fPosAnteriorDocumento();
+
+        [DllImport("MGWServicios.dll")]
         public static extern Int32 fBuscarDocumento(string aCodConcepto, string aSerie, string aFolio);
 
         [DllImport("MGWServicios.dll")]
@@ -216,20 +228,50 @@ namespace SDKCompac.Nativos
         public static extern int fSetDatoMovimiento(string aCampo, string aValor);
 
         [DllImport("MGWServicios.dll")]
-        public static extern void fEditarMovimiento();
+        public static extern int fEditarMovimiento();
 
         [DllImport("MGWServicios.dll")]
-        public static extern void fGuardaMovimiento();
+        public static extern int fGuardaMovimiento();
 
         [DllImport("MGWServicios.dll")]
         public static extern int fSetFiltroMovimiento(Int32 aIdDocumento);
 
         [DllImport("MGWServicios.dll")]
+        public static extern int fCancelaFiltroDocumento();
+
+        [DllImport("MGWServicios.dll")]
         public static extern int fPosPrimerMovimiento();
 
         [DllImport("MGWServicios.dll")]
+        public static extern int fPosUltimoMovimiento();
+
+        [DllImport("MGWServicios.dll")]
+        public static extern int fPosSiguienteMovimiento();
+
+        [DllImport("MGWServicios.dll")]
+        public static extern int fPosAnteriorMovimiento();
+
+        [DllImport("MGWServicios.dll")]
         public static extern int fLeeDatoMovimiento(string aCampo, StringBuilder aValr, int aLen);
+
+        [DllImport("MGWServicios.dll")]
+        public static extern int fPosPrimerValorClasif();
+
+        [DllImport("MGWServicios.dll")]
+        public static extern int fPosUltimoValorClasif();
+
+        [DllImport("MGWServicios.dll")]
+        public static extern int fPosSiguienteValorClasif();
+
+        [DllImport("MGWServicios.dll")]
+        public static extern int fPosAnteriorValorClasif();
         
+        [DllImport("MGWServicios.dll")]
+        public static extern int fLeeDatoValorClasif(string aCampo, StringBuilder aValr, int aLen);
+
+        
+
+
         public static string getError(int lResult) {
             StringBuilder mensaje = new StringBuilder(255);
             string sRetorno = null;

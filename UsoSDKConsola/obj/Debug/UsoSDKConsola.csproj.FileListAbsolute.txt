@@ -1,0 +1,14 @@
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\bin\Debug\UsoSDKConsola.exe.config
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\bin\Debug\UsoSDKConsola.exe
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\bin\Debug\UsoSDKConsola.pdb
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\bin\Debug\SDKCompac.dll
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\bin\Debug\SDKCompac.pdb
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\obj\Debug\UsoSDKConsola.csprojAssemblyReference.cache
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\obj\Debug\UsoSDKConsola.Inicio.resources
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\obj\Debug\UsoSDKConsola.csproj.GenerateResource.cache
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\obj\Debug\UsoSDKConsola.csproj.CoreCompileInputs.cache
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\obj\Debug\UsoSDKConsola.csproj.CopyComplete
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\obj\Debug\UsoSDKConsola.exe
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\obj\Debug\UsoSDKConsola.pdb
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\obj\Debug\UsoSDKConsola.ListadoEmpresas.resources
+C:\Users\sopor\RiderProjects\Facturación\UsoSDKConsola\obj\Debug\UsoSDKConsola.ListadoClientes.resources

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
+using System.Collections.Generic;
 using System.Text;
 using SDKCompac.Nativos;
 using SDKCompac.Nativos.Estructuras;
@@ -11,52 +10,91 @@ namespace SDKCompac.Modelos {
             public const string CodigoCliente = "cCodigoCliente";
             public const string RazonSocial = "cRazonSocial";
             public const string RFC = "cRFC";
-            public const string CodigoValorClasificacionCliente1 = "CIDVALORCLASIFCLIENTE1";
+            public const string CodigoValorClasificacionCliente1 = "cIdValorClasifCliente1";
+            public const string TextoExtra1 = "cTextoExtra1";
+            public const string Estatus = "cEstatus";
         }
-        
+
         private tCteProv _estructura;
 
-        public int Indice { private set; get; }
+        //public int Indice { private set; get; }
 
-        public static ClienteProveedor Obtener(int indice, string[] campos) {
+        private static void ObtenerCampo(ref ClienteProveedor cteProv, string campo) {
+            StringBuilder stringBuilder;
+            int intValue;
+            double doubleValue;
 
-            if (indice >= 0) {
-                Comercial.comprobarError(Nativos.SDK.fPosPrimerCteProv());
-                for (int i = 0; i < indice; i++) {
-                    Comercial.comprobarError(Nativos.SDK.fPosSiguienteCteProv());
-                }
-            } else {
-                indice = Math.Abs(indice) - 1;
+            switch (campo) {
+                case ClienteProveedor.Campos.CodigoCliente:
+                    stringBuilder = new StringBuilder(Constantes.kLongCodigo);
+                    Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
+                        Constantes.kLongCodigo));
+                    cteProv.CodigoCliente = stringBuilder.ToString();
+                    break;
+
+                case ClienteProveedor.Campos.RazonSocial:
+                    stringBuilder = new StringBuilder(Constantes.kLongNombre);
+                    Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
+                        Constantes.kLongNombre));
+                    cteProv.RazonSocial = stringBuilder.ToString();
+                    break;
+
+                case ClienteProveedor.Campos.RFC:
+                    stringBuilder = new StringBuilder(Constantes.kLongRFC);
+                    Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
+                        Constantes.kLongRFC));
+                    cteProv.RFC = stringBuilder.ToString();
+                    break;
+
+                case ClienteProveedor.Campos.CodigoValorClasificacionCliente1:
+                    stringBuilder = new StringBuilder(Constantes.kLongCodValorClasif);
+                    Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
+                        Constantes.kLongCodValorClasif));
+                    cteProv.CodigoValorClasificacionCliente1 = stringBuilder.ToString();
+                    break;
+
+                case ClienteProveedor.Campos.TextoExtra1:
+                    stringBuilder = new StringBuilder(50);
+                    Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
+                        50));
+                    cteProv.TextoExtra1 = stringBuilder.ToString();
+                    break;
+                case ClienteProveedor.Campos.Estatus:
+                    stringBuilder = new StringBuilder(Constantes.kIntGenerico);
+                    Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
+                        Constantes.kIntGenerico));
+                    int res = 0;
+                    if (int.TryParse(stringBuilder.ToString(), out res)) {
+                        cteProv.Status = res;
+                    }
+                    break;
             }
+        }
 
-            ClienteProveedor cteProv = new ClienteProveedor(indice);
-            StringBuilder stringBuilder = new StringBuilder();
+        public static ClienteProveedor Obtener(string CodigoCliente, params string[] campos) {
+            Comercial.comprobarError(Nativos.SDK.fBuscaCteProv(CodigoCliente));
+
+            ClienteProveedor cteProv = new ClienteProveedor();
             foreach (string campo in campos) {
-                switch (campo) {
-                    case ClienteProveedor.Campos.CodigoCliente:
-                        Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
-                            Constantes.kLongCodigo + 1));
-                        cteProv.CodigoCliente = stringBuilder.ToString();
-                        break;
-                    case ClienteProveedor.Campos.RazonSocial:
-                        Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
-                            Constantes.kLongNombre + 1));
-                        cteProv.RazonSocial = stringBuilder.ToString();
-                        break;
-                    case ClienteProveedor.Campos.RFC:
-                        Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
-                            Constantes.kLongRFC + 1));
-                        cteProv.RFC = stringBuilder.ToString();
-                        break;
-                    case ClienteProveedor.Campos.CodigoValorClasificacionCliente1:
-                        Comercial.comprobarError(Nativos.SDK.fLeeDatoCteProv(campo, stringBuilder,
-                            Constantes.kLongCodValorClasif + 1));
-                        cteProv.CodigoValorClasificacionCliente1 = stringBuilder.ToString();
-                        break;
-                }
+               ClienteProveedor.ObtenerCampo(ref cteProv, campo);
             }
 
             return cteProv;
+        }
+
+        public static ClienteProveedor[] ObtenerTodos(params string[] campos) {
+            List<ClienteProveedor> cteProvs = new List<ClienteProveedor>();
+            Comercial.comprobarError(Nativos.SDK.fPosPrimerCteProv());
+            while (true) {
+                ClienteProveedor cteProv = new ClienteProveedor();
+                foreach (string campo in campos) {
+                    ClienteProveedor.ObtenerCampo(ref cteProv, campo);
+                }
+                cteProvs.Add(cteProv);
+                if (Nativos.SDK.fPosSiguienteCteProv() != 0) break;
+            }
+
+            return cteProvs.ToArray();
         }
 
         public string CodigoCliente {
@@ -383,14 +421,14 @@ namespace SDKCompac.Modelos {
             get => _estructura.cImporteExtra4;
             set => _estructura.cImporteExtra4 = value;
         }
+
+        public int Status { get; set; }
         
-        public ClienteProveedor(int indice) {
-            Indice = indice;
+        public ClienteProveedor() {
             _estructura = new tCteProv();
         }
 
-        public ClienteProveedor(int indice, tCteProv clienteProveedorEstructura) {
-            Indice = indice;
+        public ClienteProveedor(tCteProv clienteProveedorEstructura) {
             _estructura = clienteProveedorEstructura;
         }
 

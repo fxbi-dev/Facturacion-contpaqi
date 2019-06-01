@@ -1,0 +1,12 @@
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\bin\x64\Debug\ConsoleApp1.exe.config
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\bin\x64\Debug\ConsoleApp1.exe
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\bin\x64\Debug\ConsoleApp1.pdb
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\bin\x64\Debug\SDKCompac.dll
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\bin\x64\Debug\SDKCompac.pdb
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\obj\x64\Debug\ConsoleApp1.csprojAssemblyReference.cache
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\obj\x64\Debug\ConsoleApp1.GUI.ListadoEmpresas.resources
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\obj\x64\Debug\ConsoleApp1.csproj.GenerateResource.cache
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\obj\x64\Debug\ConsoleApp1.csproj.CoreCompileInputs.cache
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\obj\x64\Debug\ConsoleApp1.csproj.CopyComplete
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\obj\x64\Debug\ConsoleApp1.exe
+C:\Users\sopor\RiderProjects\Facturación\ConsoleApp1\obj\x64\Debug\ConsoleApp1.pdb

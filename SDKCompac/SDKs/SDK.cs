@@ -7,10 +7,10 @@ namespace SDKCompac {
 
         // Empresa
         Empresa[] obtenerEmpresas();
-        void abrirEmpresa(string Directorio);
+        void abrirEmpresa(Empresa empresa);
         void cerrarEmpresa();
 
         // Cliente/Proveedor
-        ClienteProveedor[] obtenerClientesProveedores();
+        ClienteProveedor[] ObtenerClientesProveedores();
     }
 }

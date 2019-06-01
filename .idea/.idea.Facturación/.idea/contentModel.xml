@@ -31,8 +31,8 @@
             <e p="tProduto.cs" t="Include" />
             <e p="tSeriesCapas.cs" t="Include" />
           </e>
+          <e p="SDK.cs" t="Include" />
           <e p="SDKAdminpaq.cs" t="Include" />
-          <e p="SDKComercial.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive" />
         <e p="Properties" t="Include">
